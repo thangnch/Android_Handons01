@@ -1,0 +1,32 @@
+String textUrl = params[0];
+
+            InputStream in = null;
+            BufferedReader br= null;
+            try {
+                URL url = new URL(textUrl);
+                HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+
+                httpConn.setAllowUserInteraction(false);
+                httpConn.setInstanceFollowRedirects(true);
+                httpConn.setRequestMethod("GET");
+                httpConn.connect();
+
+                int resCode = httpConn.getResponseCode();
+
+                if (resCode == HttpURLConnection.HTTP_OK) {
+                    in = httpConn.getInputStream();
+                    br= new BufferedReader(new InputStreamReader(in));
+
+                    StringBuilder sb= new StringBuilder();
+                    String s;
+                    while((s= br.readLine())!= null) {
+                        sb.append(s);
+                        sb.append("\n");
+                    }
+                    return sb.toString();
+                } else {
+                    return null;
+                }
+            } catch (Exception e) {
+                return null;
+            }
