@@ -15,10 +15,7 @@ if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
                     }
                     //String sender = messages[0].getOriginatingAddress();
                     String message = sb.toString();
-                    checkSMS(message);
-                    Log.d("Incoming ", message);
-
-
+                    
                     // prevent any other broadcast receivers from receiving broadcast
                     abortBroadcast();
                 }
